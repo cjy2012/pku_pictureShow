@@ -1,0 +1,19 @@
+{
+  "name": "pictureboard",
+  "version": "1.0.0",
+  "description": "照片墙",
+  "main": "bin/www",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjy2012/pku_pictureShow.git"
+  },
+  "author": "chenjy_pku@pku.edu.cn,whucszhangwei@sina.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjy2012/pku_pictureShow/issues"
+  },
+  "homepage": "https://github.com/cjy2012/pku_pictureShow#readme"
+}
