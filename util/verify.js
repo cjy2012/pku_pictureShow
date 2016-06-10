@@ -1,6 +1,6 @@
 var express = require('express');  
 var app = express();
-var wechatCrypto=require('wechat-crypto');
+var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../config/wechatcfg');
   
 function toWeb(req,res) {  
