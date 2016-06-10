@@ -20,7 +20,7 @@ module.exports={
             if(err){
                console.log('parse error: ' + err);
             } else {
-                console.log('parse files: ' + filesTmp);
+                //console.log('parse files: ' + filesTmp);
                 // var inputFile = files.upload[0];
                 // var uploadedPath = inputFile.path;
                 // var dstPath = uploadpath + inputFile.originalFilename;
@@ -34,8 +34,8 @@ module.exports={
                 //     }
                 // });
                 console.log('upload ok');
-                //res.redirect('/upload');
-                res.redirect('http://localhost:3000/'+files.upload[0].path);
+                var imgpath=files.upload[0].path;
+                res.redirect(imgpath.substring(imgpath.indexOf('public')+6));
             }
         });
     }
