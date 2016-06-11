@@ -3,8 +3,9 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
-var userid="";
+
 module.exports={
+    var userid="";
     index:function(req,res,next){
         res.render('index',{
             msg:"index"
@@ -17,6 +18,7 @@ module.exports={
         });
     },
     doupload:function(req,res,next){
+        console.log('userid',userid);
         var form = new multiparty.Form({uploadDir:'public/'+uploadpath});
         form.parse(req,function(err,fields,files){
             var filesTmp = JSON.stringify(files,null,2);
@@ -54,10 +56,10 @@ module.exports={
             parseString(postdata,function(err,result){
                 var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
-                console.log('解密后：',s);
+                //console.log('解密后：',s);
                 parseString(s.message,function(err,result1){
-                        console.log(result1);
-                        console.log(result1.xml.FromUserName[0]);
+                        //console.log(result1);
+                        //console.log(result1.xml.FromUserName[0]);
                         userid=result1.xml.FromUserName[0]
                 })
             });
