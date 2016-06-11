@@ -11,7 +11,7 @@ module.exports={
         });
     },
     upload:function(req,res,next){
-        console.log(req.session);
+        console.log('userid',userid);
         res.render('upload',{
             msg:userid
         });
@@ -43,7 +43,7 @@ module.exports={
         });
     },
     wechat:function(req,res,next){
-        console.log(userid);
+        console.log('userid:',userid);
         var postdata = "";
         req.addListener("data",function(postchunk){
             postdata+=postchunk;
