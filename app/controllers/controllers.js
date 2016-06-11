@@ -12,7 +12,7 @@ module.exports={
     },
     upload:function(req,res,next){
         res.render('upload',{
-            msg:"upload"
+            msg:req.session.userid
         });
     },
     doupload:function(req,res,next){
@@ -55,7 +55,7 @@ module.exports={
                 console.log('解密后：',s);
                 parseString(s.message,function(err,result1){
                         console.log(result1);
-                        //req.session.userid=result1
+                        req.session.userid=result1.xml.FromUserName[0]
                 })
             });
         });
