@@ -5,7 +5,7 @@
 var request = require('request');
 var fs = require('fs');
 
-function getToken(appID, appSecret){
+function getToken(corpid, corpsecret){
     console.log("get token");
     return new Promise(function(resolve, reject){
         var token;
@@ -18,7 +18,7 @@ function getToken(appID, appSecret){
 
         //如果没有缓存或者过期
         if(!token || token.timeout < Date.now()){
-            request('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='+appID+'&secret=' + appSecret, function(err, res, data){
+            request('https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid='+corpid+'&corpsecret=' + corpsecret, function(err, res, data){
                 var result = JSON.parse(data);
                 result.timeout = Date.now() + 7000000;
                 //更新token并缓存

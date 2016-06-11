@@ -1,15 +1,15 @@
 /**
  * Created by zhangwei on 16-4-15.
  */
-var appID = require("../config/wechatcfg").corpId;
-var appSecret = require("../config/wechatcfg").corpSecret;
+var corpId = require("../config/wechatcfg").corpId;
+var corpSecret = require("../config/wechatcfg").corpSecret;
 
 var getToken = require("./token").getToken;
 
 var request = require("request");
 
 function getUserInfo(code){
-    return getToken(appID, appSecret).then(function(res){
+    return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
 
         return new Promise(function(resolve, reject){
