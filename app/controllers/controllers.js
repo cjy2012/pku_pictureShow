@@ -1,6 +1,8 @@
 var uploadpath=require('../../config/common.js').upload_path;
 var multiparty = require('multiparty');
 var fs = require('fs');
+var WXBizMsgCrypt=require('wechat-crypto');
+var config = require('../config/wechatcfg');
 
 module.exports={
     index:function(req,res,next){
@@ -40,11 +42,6 @@ module.exports={
         });
     },
     wechat:function(req,res,next){
-        var echostr = req.query.echostr;  
-         var msg_signature = req.query.msg_signature;  
-         var timestamp = req.query.timestamp;  
-         var nonce = req.query.nonce;  
-         console.log('recv weixin req:'," msg_signature",msg_signature,"timestamp",timestamp,"nonce",nonce,"echostr",echostr);  
         var postdata = "";
         req.addListener("data",function(postchunk){
             postdata+=postchunk;
@@ -53,9 +50,9 @@ module.exports={
         req.addListener("end",function(){
             var parseString = require('xml2js').parseString;
             parseString(postdata,function(err,result){
-                var xml=result.xml;
-                console.log("Receiving data:")
-                console.log(result);
+                var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
+                var s = crypto.decrypt(result.xml.Encrypt[0]);
+                console.log('解密后：',s);
             });
         });
     }
