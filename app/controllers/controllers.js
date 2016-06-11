@@ -5,14 +5,13 @@ var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
 
 module.exports={
-    var userid="";
     index:function(req,res,next){
         res.render('index',{
             msg:"index"
         });
     },
     upload:function(req,res,next){
-        console.log('userid',userid);
+        
         res.render('upload',{
             msg:userid
         });
@@ -57,11 +56,11 @@ module.exports={
                 var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
                 //console.log('解密后：',s);
-                parseString(s.message,function(err,result1){
+                //parseString(s.message,function(err,result1){
                         //console.log(result1);
                         //console.log(result1.xml.FromUserName[0]);
-                        userid=result1.xml.FromUserName[0]
-                })
+                        //userid=result1.xml.FromUserName[0]
+                //})
             });
         });
     }
