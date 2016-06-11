@@ -3,7 +3,7 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
-
+var userid="";
 module.exports={
     index:function(req,res,next){
         res.render('index',{
@@ -13,7 +13,7 @@ module.exports={
     upload:function(req,res,next){
         console.log(req.session);
         res.render('upload',{
-            msg:'sssss'
+            msg:userid
         });
     },
     doupload:function(req,res,next){
@@ -57,7 +57,7 @@ module.exports={
                 parseString(s.message,function(err,result1){
                         console.log(result1);
                         console.log(result1.xml.FromUserName[0]);
-                        req.session.userid=result1.xml.FromUserName[0]
+                        userid=result1.xml.FromUserName[0]
                 })
             });
         });
