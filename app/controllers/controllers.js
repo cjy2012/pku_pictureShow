@@ -44,7 +44,7 @@ module.exports={
          var msg_signature = req.query.msg_signature;  
          var timestamp = req.query.timestamp;  
          var nonce = req.query.nonce;  
-         console.log('recv weixin req:'," sign",sign,"timestamp",timestamp,"nonce",nonce,"echostr",echostr);  
+         console.log('recv weixin req:'," msg_signature",msg_signature,"timestamp",timestamp,"nonce",nonce,"echostr",echostr);  
         var postdata = "";
         req.addListener("data",function(postchunk){
             postdata+=postchunk;
