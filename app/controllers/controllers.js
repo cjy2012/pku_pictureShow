@@ -109,7 +109,7 @@ module.exports={
             parseString(postdata,function(err,result){
                 var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
-                console.log('解密后：',s);
+                //console.log('解密后：',s);
                 //parseString(s.message,function(err,result1){
                         //console.log(result1);
                         //console.log(result1.xml.FromUserName[0]);
