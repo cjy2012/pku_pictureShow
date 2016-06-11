@@ -55,6 +55,7 @@ module.exports={
                 console.log('解密后：',s);
                 parseString(s.message,function(err,result1){
                         console.log(result1);
+                        console.log(result1.xml.FromUserName[0]);
                         req.session.userid=result1.xml.FromUserName[0]
                 })
             });
