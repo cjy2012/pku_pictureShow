@@ -13,8 +13,11 @@ module.exports={
     upload:function(req,res,next){
         var code = req.query.code;
         console.log(code);
-        res.render('upload',{
-            msg:'upload'
+         getUserInfo(code).then(function(data){
+            console.log(data);
+            res.render('upload',{
+                msg:data.UserId
+            });
         });
     },
     doupload:function(req,res,next){
