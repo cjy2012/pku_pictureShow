@@ -11,8 +11,9 @@ module.exports={
         });
     },
     upload:function(req,res,next){
+        console.log(req.session);
         res.render('upload',{
-            msg:req.session.userid
+            msg:'sssss'
         });
     },
     doupload:function(req,res,next){
