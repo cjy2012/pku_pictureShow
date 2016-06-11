@@ -2,7 +2,7 @@ var uploadpath=require('../../config/common.js').upload_path;
 var multiparty = require('multiparty');
 var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
-var config = require('../config/wechatcfg');
+var config = require('../../config/wechatcfg');
 
 module.exports={
     index:function(req,res,next){
