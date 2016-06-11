@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('picboard:server');
 var http = require('http');
+var mongoose = require('mongoose');
 //使用mongoose连接服务
 mongoose.connect('mongodb://localhost:27017/test');
 mongoose.connection.on('error',console.error.bind(console,'连接数据库失败'));
