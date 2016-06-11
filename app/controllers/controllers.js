@@ -54,6 +54,32 @@ module.exports={
             if(err){
                console.log('parse error: ' + err);
             } else {
+                var imgpath=files.upload[0].path;
+                //if already exist 
+                UserPicture.findOne({userid:req.session.userId},function(err1,userPicture){
+                    if(err1){
+                        console.log('find error: ' + err1);
+                    }
+                    if(userPicture){
+                        UserPicture.update({_id:userPicture._id},{imgpath:imgpath.substring(imgpath.indexOf('public')+6)},function(err,doc){
+                            console.log('updated :',doc);
+
+                        })
+                    }else{
+                        var newUserPicture = new UserPicture({
+                            userid:req.session.userId,
+                            imgpath:imgpath.substring(imgpath.indexOf('public')+6)
+                        })
+                        newUserPicture.save(function(err,doc){
+                            if(err){
+                                console.log(err);
+                            }else{
+                                console.log('uploaded ok,',doc);
+                                return res.redirect('/upload');
+                            }
+                        })
+                    }
+                })
                 //console.log('parse files: ' + filesTmp);
                 // var inputFile = files.upload[0];
                 // var uploadedPath = inputFile.path;
@@ -67,28 +93,8 @@ module.exports={
                 //         res.redirect('/upload');
                 //     }
                 // });
-                var imgpath=files.upload[0].path;
-                var newUserPicture = new UserPicture({
-                    userid:req.session.userId,
-                    imgpath:imgpath.substring(imgpath.indexOf('public')+6)
-                })
-                newUserPicture.save(function(err,doc){
-                    if(err){
-                        console.log(err);
-                        return res.render('register',{
-                            user:req.session.user,
-                            username:username,
-                            password:password,
-                            passwordRepeat:passwordRepeat,
-                            err:'内部错误，请重试！',
-                            pageTitle:'注册'
-                        });
-                    }else{
-                        console.log(doc);
-                        return res.redirect('/upload');
-                    }
-                })
-                console.log('upload ok');
+                
+                
             }
         });
     },
