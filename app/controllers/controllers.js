@@ -54,7 +54,7 @@ module.exports={
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
                 console.log('解密后：',s);
                 parseString(s,function(err,result1){
-                        console.log(result1.xml);
+                        console.log(result1);
                         //req.session.userid=result1
                 })
             });
