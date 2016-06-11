@@ -3,6 +3,7 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
+var getUserInfo = require('../../util/user').getUserInfo;
 
 module.exports={
     index:function(req,res,next){
