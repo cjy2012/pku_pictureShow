@@ -4,6 +4,9 @@ var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
 var getUserInfo = require('../../util/user').getUserInfo;
+var models = require('../models/models');
+//加载models
+var UserPicture = models.UserPicture;
 
 module.exports={
     index:function(req,res,next){
@@ -12,14 +15,36 @@ module.exports={
         });
     },
     upload:function(req,res,next){
-        var code = req.query.code;
-        console.log(code);
-         getUserInfo(code).then(function(data){
-            console.log(data);
-            res.render('upload',{
-                msg:data.UserId
+        if(req.session.userId){
+            UserPicture.findOne({userid:req.session.userId},function(err,userPicture){
+                res.render('upload',{
+                    img:userPicture.imgpath,
+                    msg:'个人中心'
+                });
+            })
+        }else{
+            var code = req.query.code;
+            console.log(code);
+             getUserInfo(code).then(function(data){
+                console.log(data);
+                req.session.userId=data.UserId;
+                UserPicture.findOne({userid:data.UserId},function(err,userPicture){
+                    if(err){
+                        console.log(err);
+                    }
+                    if(userPicture){
+                        res.render('upload',{
+                            img:userPicture.imgpath,
+                            msg:'个人中心'
+                        });
+                    }else{
+                        res.render('upload',{
+                            msg:'个人中心'
+                        });
+                    }
+                });
             });
-        });
+         }
     },
     doupload:function(req,res,next){
         var form = new multiparty.Form({uploadDir:'public/'+uploadpath});
@@ -41,9 +66,28 @@ module.exports={
                 //         res.redirect('/upload');
                 //     }
                 // });
-                console.log('upload ok');
                 var imgpath=files.upload[0].path;
-                res.redirect(imgpath.substring(imgpath.indexOf('public')+6));
+                var newUserPicture = new UserPicture({
+                    userid:req.session.userId,
+                    imgpath:imgpath.substring(imgpath.indexOf('public')+6)
+                })
+                newUserPicture.save(function(err,doc){
+                    if(err){
+                        console.log(err);
+                        return res.render('register',{
+                            user:req.session.user,
+                            username:username,
+                            password:password,
+                            passwordRepeat:passwordRepeat,
+                            err:'内部错误，请重试！',
+                            pageTitle:'注册'
+                        });
+                    }else{
+                        console.log(doc);
+                        return res.redirect('/upload');
+                    }
+                })
+                console.log('upload ok');
             }
         });
     },
