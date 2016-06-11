@@ -11,7 +11,8 @@ module.exports={
         });
     },
     upload:function(req,res,next){
-        
+        var code = req.query.code;
+        console.log(code);
         res.render('upload',{
             msg:'upload'
         });
