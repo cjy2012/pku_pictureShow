@@ -6,4 +6,6 @@ module.exports = function(app){
     app.route('/upload')
             .get(Controller.upload)
             .post(Controller.doupload);
+    app.route('/wechat')
+            .post(Controller.wechat);
 };

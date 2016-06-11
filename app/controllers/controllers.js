@@ -38,5 +38,20 @@ module.exports={
                 res.redirect(imgpath.substring(imgpath.indexOf('public')+6));
             }
         });
+    },
+    wechat:function(req,res,next){
+         var postdata = "";
+        req.addListener("data",function(postchunk){
+            postdata+=postchunk;
+        });
+        //获取到了POST数据
+        req.addListener("end",function(){
+            var parseString = require('xml2js').parseString;
+            parseString(postdata,function(err,result){
+                var xml=result.xml;
+                console.log("Receiving data:")
+                console.log(result);
+            });
+        });
     }
 }
