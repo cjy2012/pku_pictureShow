@@ -39,6 +39,7 @@ module.exports={
                         });
                     }else{
                         res.render('upload',{
+                            img:"",
                             msg:'个人中心'
                         });
                     }
