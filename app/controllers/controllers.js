@@ -43,6 +43,7 @@ module.exports={
         });
     },
     wechat:function(req,res,next){
+        console.log(userid);
         var postdata = "";
         req.addListener("data",function(postchunk){
             postdata+=postchunk;
