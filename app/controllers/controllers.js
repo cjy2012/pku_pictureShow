@@ -53,6 +53,10 @@ module.exports={
                 var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
                 console.log('解密后：',s);
+                parseString(s,function(err,result1){
+                        console.log(result1.xml);
+                        //req.session.userid=result1
+                })
             });
         });
     }
