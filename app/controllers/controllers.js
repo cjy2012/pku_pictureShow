@@ -63,7 +63,7 @@ module.exports={
                     if(userPicture){
                         UserPicture.update({_id:userPicture._id},{imgpath:imgpath.substring(imgpath.indexOf('public')+6)},function(err,doc){
                             console.log('updated :',doc);
-
+                            return res.redirect('/upload');
                         })
                     }else{
                         var newUserPicture = new UserPicture({
