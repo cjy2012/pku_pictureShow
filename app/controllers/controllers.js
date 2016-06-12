@@ -90,7 +90,7 @@ module.exports={
                         console.log('find error: ' + err1);
                     }
                     if(userPicture){
-                        UserPicture.update({_id:userPicture._id},{imgpath:imgpath.substring(imgpath.indexOf('public')+6),createTime:Date.now},function(err,doc){
+                        UserPicture.update({_id:userPicture._id},{imgpath:imgpath.substring(imgpath.indexOf('public')+6)},function(err,doc){
                             console.log('updated :',doc);
                             return res.redirect('/upload');
                         })
