@@ -15,6 +15,15 @@ module.exports={
             msg:"index"
         });
     },
+    picturesShow:function(req,res,next){
+        UserPicture.findAll({order : 'createTime desc'},function(err,picturesList){
+            console.log(picturesList)
+            res.render('picturesShow',{
+                img:picturesList,
+                msg:'软微照片秀'
+            });
+        })
+    },
     upload:function(req,res,next){
         if(req.session.userinfo){
             UserPicture.findOne({userid:req.session.userinfo.userid},function(err,userPicture){
