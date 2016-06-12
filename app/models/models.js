@@ -11,7 +11,11 @@
     gender:String,
     weixinid:String,
     avatar:String,
-    imgpath:String
+    imgpath:String,
+    createTime:{
+        type:Date,
+        default:Date.now
+    }
  });
 
  exports.UserPicture = mongoose.model('UserPicture',userPictureSchema);
