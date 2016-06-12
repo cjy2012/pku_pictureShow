@@ -40,6 +40,6 @@ function getOpenId(userid){
 }
 
 module.exports = {
-    getUserInfo: getUserInfo;
+    getUserInfo: getUserInfo
     getOpenId:getOpenId
 };
