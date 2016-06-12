@@ -13,7 +13,7 @@ function getUserInfo(code){
         var token = res.access_token;
 
         return new Promise(function(resolve, reject){
-            request("https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?access_token="+token+"&code="+code, function(err, res, data){
+            request("https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token="+token+"&auth_code="+code, function(err, res, data){
                 console.log("userinfo:"+data);
                 resolve(JSON.parse(data));
             });
