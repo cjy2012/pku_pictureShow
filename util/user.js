@@ -11,6 +11,9 @@ var request = require("request");
 function getUserInfo(code){
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
+        var params={
+            auth_code:code
+        }
         var opt={
             url:"https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token="+token,
             method:'post',
