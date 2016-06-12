@@ -11,9 +11,13 @@ var request = require("request");
 function getUserInfo(code){
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
-
+        var opt={
+            url:"https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token="+token,
+            method:'post',
+            body:JSON.stringify(params)
+        }
         return new Promise(function(resolve, reject){
-            request.post("https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info?access_token="+token+"&auth_code="+code, function(err, res, data){
+            request(opt, function(err, res, data){
                 console.log("userinfo:"+data);
                 resolve(JSON.parse(data));
             });
