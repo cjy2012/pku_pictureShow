@@ -36,7 +36,7 @@ function getOpenId(userid){
                 resolve(JSON.parse(data));
             });
         });
-    }
+    });
 }
 
 module.exports = {
