@@ -43,5 +43,5 @@ function getUserInfo(userid){
 
 module.exports = {
     getUserId: getUserId,
-    getOpenId:getOpenId
+    getUserInfo:getUserInfo
 };

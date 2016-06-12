@@ -3,8 +3,8 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
+var getUserId = require('../../util/user').getUserId;
 var getUserInfo = require('../../util/user').getUserInfo;
-var getOpenId = require('../../util/user').getOpenId;
 var models = require('../models/models');
 //加载models
 var UserPicture = models.UserPicture;
@@ -26,10 +26,10 @@ module.exports={
         }else{
             var code = req.query.code;
             console.log(code);
-             getUserInfo(code).then(function(data){
+             getUserId(code).then(function(data){
                 console.log("data",data);
                 req.session.userId=data.UserId;
-                getOpenId(data.UserId).then(function(data1){
+                getUserInfo(data.UserId).then(function(data1){
                     console.log("data1:",data1);
                     UserPicture.findOne({userid:data.UserId},function(err,userPicture){
                         if(err){
