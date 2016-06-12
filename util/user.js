@@ -26,12 +26,12 @@ function getUserInfo(code){
 function getOpenId(userid){
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
-        var data={
+        var param={
             userid:userid
         }
         return new Promise(function(resolve, reject){
 
-            request.post("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token="+token,{form:data}, function(err, res, data){
+            request.post("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token="+token,{form:param}, function(err, res, data){
                 console.log("userinfo:"+data);
                 resolve(JSON.parse(data));
             });
