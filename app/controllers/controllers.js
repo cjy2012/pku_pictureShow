@@ -4,6 +4,7 @@ var fs = require('fs');
 var WXBizMsgCrypt=require('wechat-crypto');
 var config = require('../../config/wechatcfg');
 var getUserInfo = require('../../util/user').getUserInfo;
+var getOpenId = require('../../util/user').getOpenId;
 var models = require('../models/models');
 //加载models
 var UserPicture = models.UserPicture;
@@ -28,21 +29,24 @@ module.exports={
              getUserInfo(code).then(function(data){
                 console.log(data);
                 req.session.userId=data.UserId;
-                UserPicture.findOne({userid:data.UserId},function(err,userPicture){
-                    if(err){
-                        console.log(err);
-                    }
-                    if(userPicture){
-                        res.render('upload',{
-                            img:userPicture.imgpath,
-                            msg:'个人中心'
-                        });
-                    }else{
-                        res.render('upload',{
-                            img:"",
-                            msg:'个人中心'
-                        });
-                    }
+                getOpenId(data.UserId).then(function(data1){
+                    console.log(data1);
+                    UserPicture.findOne({userid:data.UserId},function(err,userPicture){
+                        if(err){
+                            console.log(err);
+                        }
+                        if(userPicture){
+                            res.render('upload',{
+                                img:userPicture.imgpath,
+                                msg:'个人中心'
+                            });
+                        }else{
+                            res.render('upload',{
+                                img:"",
+                                msg:'个人中心'
+                            });
+                        }
+                    });
                 });
             });
          }
