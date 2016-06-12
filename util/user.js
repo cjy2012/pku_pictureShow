@@ -27,12 +27,7 @@ function getUserInfo(userid){
     console.log('userid:',userid);
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
-        var param={
-            userid:userid
-        }
-        param = require('querystring').stringify(param);
         return new Promise(function(resolve, reject){
-
             request("https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token="+token+"&userid="+userid, function(err, res, data){
                 console.log("userinfo:"+data);
                 resolve(JSON.parse(data));

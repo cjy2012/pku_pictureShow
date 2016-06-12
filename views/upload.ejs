@@ -10,10 +10,12 @@
     <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />  
 </head>
 <body>
+
+<div class="row">
+    <div class="col-md-9 col-md-push-3"><img src="<%=headimg%>>" class="img-rounded"></div>
+    <div class="col-md-3 col-md-pull-9"><%=msg%></div>
+</div>
     <div class="htmleaf-container">
-        <header class="htmleaf-header">
-            <h1><%=msg%></h1>
-        </header>
         <%if(img){%>
 <img src="<%=img%>" class="img-thumbnail">
         <%}else{%>
@@ -22,7 +24,7 @@
         <img src="">
         <div class="container kv-main">
             <div class="page-header">
-            <h2>Upload your picture<small></h2>
+            <h2>Upload your picture</h2>
             </div>
             <form method="post" enctype="multipart/form-data">
                 <input id="file-0"  name='upload' class="file" type="file" data-min-file-count="1">

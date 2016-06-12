@@ -6,6 +6,11 @@
 
  var userPictureSchema = new Schema({
     userid:String,
+    username:String,
+    mobile:String,
+    gender:String,
+    weixinid:String,
+    avatar:String,
     imgpath:String
  });
 

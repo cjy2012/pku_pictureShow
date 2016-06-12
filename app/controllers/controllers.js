@@ -16,11 +16,12 @@ module.exports={
         });
     },
     upload:function(req,res,next){
-        if(req.session.userId){
-            UserPicture.findOne({userid:req.session.userId},function(err,userPicture){
+        if(req.session.userinfo){
+            UserPicture.findOne({userid:req.session.userinfo.userid},function(err,userPicture){
                 res.render('upload',{
                     img:userPicture.imgpath,
-                    msg:'个人中心'
+                    msg:req.session.userinfo.name+'的个人中心',
+                    headimg:req.session.userinfo.avatar
                 });
             })
         }else{
@@ -28,9 +29,22 @@ module.exports={
             console.log(code);
              getUserId(code).then(function(data){
                 console.log("data",data);
-                req.session.userId=data.UserId;
+                //req.session.userId=data.UserId;
                 getUserInfo(data.UserId).then(function(data1){
                     console.log("data1:",data1);
+                    /**data:{    errcode: 0,
+                                 errmsg: 'ok',
+                                 userid: '1501211039',
+                                 name: '章伟',
+                                 department: [ 18 ],
+                                 mobile: '18601010727',
+                                 gender: '1',
+                                 weixinid: 'whuzhangwei',
+                                 avatar: 'http://shp.qpic.cn/bizmp/zlNOWW2EMAP0lcYKkrLZZibtkPjalXoRxhiadqqOkicNc5Wp33THkK8QA/',
+                                 status: 1,
+                                 extattr: { attrs: [] }
+                      }**/
+                    req.session.userinfo=data1;
                     UserPicture.findOne({userid:data.UserId},function(err,userPicture){
                         if(err){
                             console.log(err);
@@ -38,12 +52,14 @@ module.exports={
                         if(userPicture){
                             res.render('upload',{
                                 img:userPicture.imgpath,
-                                msg:'个人中心'
+                                msg:req.session.userinfo.name+'的个人中心',
+                                headimg:req.session.userinfo.avatar
                             });
                         }else{
                             res.render('upload',{
                                 img:"",
-                                msg:'个人中心'
+                                msg:req.session.userinfo.name+'的个人中心',
+                                headimg:req.session.userinfo.avatar
                             });
                         }
                     });
@@ -60,7 +76,7 @@ module.exports={
             } else {
                 var imgpath=files.upload[0].path;
                 //if already exist 
-                UserPicture.findOne({userid:req.session.userId},function(err1,userPicture){
+                UserPicture.findOne({userid:req.session.userinfo.userid},function(err1,userPicture){
                     if(err1){
                         console.log('find error: ' + err1);
                     }
@@ -71,7 +87,12 @@ module.exports={
                         })
                     }else{
                         var newUserPicture = new UserPicture({
-                            userid:req.session.userId,
+                            userid:req.session.userinfo.userid,
+                            username:req.session.userinfo.name,
+                            mobile:req.session.userinfo.mobile,
+                            gender:req.session.userinfo.gender,
+                            weixinid:req.session.userinfo.weixinid,
+                            avatar:req.session.userinfo.avatar,
                             imgpath:imgpath.substring(imgpath.indexOf('public')+6)
                         })
                         newUserPicture.save(function(err,doc){
