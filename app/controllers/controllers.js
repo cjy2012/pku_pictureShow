@@ -30,6 +30,9 @@ module.exports={
                 res.render('upload',{
                     img:userPicture.imgpath,
                     msg:req.session.userinfo.name+'的个人中心',
+                    name:req.session.userinfo.name,
+                    weixinid:req.session.userinfo.weixinid,
+                    userid:req.session.userinfo.userid,
                     headimg:req.session.userinfo.avatar
                 });
             })
@@ -62,12 +65,18 @@ module.exports={
                             res.render('upload',{
                                 img:userPicture.imgpath,
                                 msg:req.session.userinfo.name+'的个人中心',
+                                name:req.session.userinfo.name,
+                                weixinid:req.session.userinfo.weixinid,
+                                userid:req.session.userinfo.userid,
                                 headimg:req.session.userinfo.avatar
                             });
                         }else{
                             res.render('upload',{
                                 img:"",
                                 msg:req.session.userinfo.name+'的个人中心',
+                                name:req.session.userinfo.name,
+                                weixinid:req.session.userinfo.weixinid,
+                                userid:req.session.userinfo.userid,
                                 headimg:req.session.userinfo.avatar
                             });
                         }
@@ -92,7 +101,7 @@ module.exports={
                     if(userPicture){
                         UserPicture.update({_id:userPicture._id},{imgpath:imgpath.substring(imgpath.indexOf('public')+6)},function(err,doc){
                             console.log('updated :',doc);
-                            return res.redirect('/upload');
+                            return res.redirect('/picturesShow');
                         })
                     }else{
                         var newUserPicture = new UserPicture({
@@ -109,7 +118,7 @@ module.exports={
                                 console.log(err);
                             }else{
                                 console.log('uploaded ok,',doc);
-                                return res.redirect('/upload');
+                                return res.redirect('/picturesShow');
                             }
                         })
                     }
