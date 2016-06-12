@@ -237,7 +237,7 @@ a:hover,a:focus{color:#74777b;}
 
 #persinalinfo{
 	padding-top: 5px;
-	padding-left: 5%;
+	padding-left: 8%;
 }
 
 #imgCss{
@@ -247,4 +247,9 @@ a:hover,a:focus{color:#74777b;}
 	padding-left:5px;
 	margin:0px;
 	vertical-align:middle;
+}
+
+.imgName{
+	padding-top:3px;
+	algin:center;
 }
