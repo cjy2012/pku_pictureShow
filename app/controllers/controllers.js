@@ -27,10 +27,10 @@ module.exports={
             var code = req.query.code;
             console.log(code);
              getUserInfo(code).then(function(data){
-                console.log(data);
+                console.log("data",data);
                 req.session.userId=data.UserId;
                 getOpenId(data.UserId).then(function(data1){
-                    console.log(data1);
+                    console.log("data1:",data1);
                     UserPicture.findOne({userid:data.UserId},function(err,userPicture){
                         if(err){
                             console.log(err);
