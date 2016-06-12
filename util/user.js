@@ -26,13 +26,10 @@ function getUserInfo(code){
 function getOpenId(userid){
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
-        var data={
-            userid:userid
-        }
         return new Promise(function(resolve, reject){
 
-            request.post("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token="+token,{form:data}, function(err, res, data){
-                console.log("userinfo:"+data);
+            request.post("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token="+token+"&userid="+userid, function(err, res, data){
+                console.log("openidinfo:"+data);
                 resolve(JSON.parse(data));
             });
         });
