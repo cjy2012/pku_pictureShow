@@ -16,7 +16,7 @@ module.exports={
         });
     },
     picturesShow:function(req,res,next){
-        UserPicture.findAll({order : 'createTime desc'},function(err,picturesList){
+        UserPicture.find({order : 'createTime desc'},function(err,picturesList){
             console.log(picturesList)
             res.render('picturesShow',{
                 img:picturesList,
