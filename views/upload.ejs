@@ -10,11 +10,16 @@
     <link href="css/fileinput.css" media="all" rel="stylesheet" type="text/css" />  
 </head>
 <body>
-
-<div>
-    <img src="<%=headimg%>" class="img-rounded" style="width:96px;height:96px;padding:0px;padding-left:5px;margin:0px;vertical-align:middle;"/>
-    <span style="padding-top:5px;"><%=name%><br><%=weixinid%><br><%=userid%></span>
-</div>
+<span>
+    <div class="pull-left">
+        <img src="<%=headimg%>" class="img-rounded" id="imgCss"/>
+    </div>
+    <div id="persinalinfo" class="pull-rigth">
+        <p><b><%=name%></b></p>
+        <p><%=weixinid%></p>
+        <p><%=userid%></p>
+    </div>
+</span>
     <div class="htmleaf-container">
         <%if(img){%>
 <img src="<%=img%>" class="img-thumbnail">
