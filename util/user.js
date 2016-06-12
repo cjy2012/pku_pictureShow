@@ -24,11 +24,13 @@ function getUserInfo(code){
 }
 
 function getOpenId(userid){
+    console.log('userid:',userid);
     return getToken(corpId, corpSecret).then(function(res){
         var token = res.access_token;
         var param={
             userid:userid
         }
+        param = require('querystring').stringify(param);
         return new Promise(function(resolve, reject){
 
             request.post("https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token="+token,{form:param}, function(err, res, data){
