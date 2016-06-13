@@ -16,13 +16,25 @@ module.exports={
         });
     },
     picturesShow:function(req,res,next){
-        UserPicture.find({},function(err,picturesList){
+        var msg="";
+        var  param={};
+        var page=req.query.page;
+        if(!page){
+            msg="软微男神女神";
+        }else if(page=="male"){
+            msg="软微男神";
+            param.gender="1";
+        }else{
+            msg="软微女神";
+            param.gender="2";
+        }
+        UserPicture.find(param,function(err,picturesList){
             console.log(picturesList)
             res.render('picturesShow',{
                 img:picturesList,
-                msg:'软微照片秀'
+                msg:msg
             });
-        })
+        });
     },
     upload:function(req,res,next){
         if(req.session.userinfo){
