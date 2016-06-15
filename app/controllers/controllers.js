@@ -55,19 +55,6 @@ module.exports={
                 console.log("data",data);
                 //req.session.userId=data.UserId;
                 getUserInfo(data.UserId).then(function(data1){
-                    console.log("data1:",data1);
-                    /**data:{    errcode: 0,
-                                 errmsg: 'ok',
-                                 userid: '1501211039',
-                                 name: '章伟',
-                                 department: [ 18 ],
-                                 mobile: '18601010727',
-                                 gender: '1',
-                                 weixinid: 'whuzhangwei',
-                                 avatar: 'http://shp.qpic.cn/bizmp/zlNOWW2EMAP0lcYKkrLZZibtkPjalXoRxhiadqqOkicNc5Wp33THkK8QA/',
-                                 status: 1,
-                                 extattr: { attrs: [] }
-                      }**/
                     req.session.userinfo=data1;
                     UserPicture.findOne({userid:data.UserId},function(err,userPicture){
                         if(err){
@@ -135,21 +122,6 @@ module.exports={
                         })
                     }
                 })
-                //console.log('parse files: ' + filesTmp);
-                // var inputFile = files.upload[0];
-                // var uploadedPath = inputFile.path;
-                // var dstPath = uploadpath + inputFile.originalFilename;
-                // //重命名为真实文件名
-                // fs.rename(uploadedPath, dstPath, function(err) {
-                //     if(err){
-                //         console.log('rename error: ' + err);
-                //     } else {
-                //         console.log('rename ok');
-                //         res.redirect('/upload');
-                //     }
-                // });
-                
-                
             }
         });
     },
@@ -164,11 +136,6 @@ module.exports={
             parseString(postdata,function(err,result){
                 var crypto = new WXBizMsgCrypt(config.token, config.encodingAESKey, config.corpId);
                 var s = crypto.decrypt(result.xml.Encrypt[0]);
-                //console.log('解密后：',s);
-                //parseString(s.message,function(err,result1){
-                        //console.log(result1);
-                        //console.log(result1.xml.FromUserName[0]);
-                //})
             });
         });
     }
